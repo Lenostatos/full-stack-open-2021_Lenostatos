@@ -55,7 +55,7 @@ const App = () => {
       'Premature optimization is the root of all evil.', 
       'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.', 
       'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blod tests when dianosing patients'
-    ].map((text) => ({text: text, votes: 0}))
+    ].map(text => ({text: text, votes: 0}))
     // Map the anecdotes array to an array of objects where each object contains
     // an anecdote and a vote counter.
   );
@@ -86,9 +86,9 @@ const App = () => {
     <h1>Anecdote of the day</h1>
     <VotableAnecdote
       anecdote={anecdotes[selected]}
-      setVotes={(votes) => setVotes(votes)} 
+      setVotes={votes => setVotes(votes)} 
     />
-    <button onClick={() => selectNextAnecdote()}>Next anecdote</button>
+    <button onClick={selectNextAnecdote}>Next anecdote</button>
     <MostPopularAnecdote anecdotes={anecdotes} />
     </>
   );
