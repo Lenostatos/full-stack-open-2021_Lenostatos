@@ -3,11 +3,11 @@ import './App.css';
 
 const FeedbackButton = ({text, onClick}) => (
   <button onClick={onClick}>{text}</button>
-)
+);
 
 const Statistic = ({name, value}) => (
   <tr><td>{name}</td><td>{value}</td></tr>
-)
+);
 
 const Statistics = ({numGood, numNeutral, numBad}) => {
 
@@ -45,7 +45,7 @@ const Statistics = ({numGood, numNeutral, numBad}) => {
     }
     </>
   );
-}
+};
 
 const App = () => {
 
@@ -53,17 +53,21 @@ const App = () => {
   const [numNeutral, setNumNeutral] = useState(0);
   const [numBad, setNumBad] = useState(0);
 
+  // I found out about how to do the unicode smileys at
+  // https://mathiasbynens.be/notes/javascript-escapes#unicode-code-point and
+  // https://en.wikipedia.org/wiki/Emoticons_(Unicode_block)#Table
+
   return(
     <div className="App">
       <h1>What do you think about our service?</h1>
       <FeedbackButton 
-        text={'good'} 
+        text={'good \u{1F600}'} 
         onClick={() => setNumGood(numGood + 1)} />
       <FeedbackButton 
-        text={'neutral'}
+        text={'neutral \u{1F610}'}
         onClick={() => setNumNeutral(numNeutral + 1)} />
       <FeedbackButton 
-        text={'bad'}
+        text={'bad \u{1F61E}'}
         onClick={() => setNumBad(numBad + 1)} />
       <Statistics 
         numGood={numGood}
@@ -71,6 +75,6 @@ const App = () => {
         numBad={numBad} />
     </div>
   );
-}
+};
 
 export default App;
