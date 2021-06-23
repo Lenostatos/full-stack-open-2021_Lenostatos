@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 const Header = ({ text }) => <h1>{text}</h1>;
 
 const Total = ({ parts }) => {
@@ -10,8 +7,7 @@ const Total = ({ parts }) => {
   );
 };
 
-const Part = ({ part }) => 
-  <p>{part.name} {part.exercises}</p>;
+const Part = ({ part }) => <p>{part.name} {part.exercises}</p>;
 
 const Content = ({ parts }) => (
   <div>
