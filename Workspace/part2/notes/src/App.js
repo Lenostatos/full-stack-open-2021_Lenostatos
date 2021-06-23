@@ -2,10 +2,29 @@ import React, { useState, useEffect } from 'react';
 import Note from './components/Note';
 import noteService from './services/notes';
 
+const errorStyle = {
+  color: 'red',
+  background: 'lightgrey',
+  fontSize: '20px',
+  borderStyle: 'solid',
+  borderRadius: '5px',
+  padding: '10px',
+  marginBottom: '10px'
+};
+
+const Notification = ({ message }) => {
+  if (!message) { return null; }
+
+  return (
+    <div className='error' style={errorStyle}>{message}</div>
+  );
+};
+
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showImportantOnly, setShowImportantOnly] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('test error message');
 
   useEffect(() => {
     console.log('use effect to load notes');
@@ -40,6 +59,10 @@ const App = () => {
           // the JSON.parse(JSON.stringify(...)) prevents automatic updating of
           // the logged object in the browser console. Probably not necessary in
           // this case but the more you know...
+          setErrorMessage(
+            `Note "${note.content}" was already removed from the server`
+          );
+          setTimeout(() => setErrorMessage(null), 5000);
           console.log(
             'Missing note on the server:', JSON.parse(JSON.stringify(note))
           );
@@ -79,6 +102,7 @@ const App = () => {
   return(
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage} />
       <label>
         <input 
           type='checkbox' 
