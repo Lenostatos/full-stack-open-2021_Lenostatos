@@ -1,7 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
-const CapitalWeather = ({ weather, capital }) => {
+const CapitalWeather = ({ capital }) => {
+  const [weather, setWeather] = useState(undefined);
+  
+  useEffect(() => (
+    axios
+      .get(
+        `http://api.weatherapi.com/v1/current.json?` +
+        `key=${process.env.REACT_APP_API_KEY}&` +
+        `q=${encodeURIComponent(capital)}&aqi=no`)
+      .then(result => setWeather(result.data))
+      .catch(error => setWeather(undefined))
+  ), [capital]);
+  
+  if (!capital || capital === '') { return null; }
+
+  if (!weather) { return null; }
+  
+  console.log(weather);
+
   const currWeather = weather.current;
   return (
     <>
@@ -30,19 +48,8 @@ const CapitalWeather = ({ weather, capital }) => {
 
 // Renders information on a single country
 const FullCountryInfo = ({ country }) => {
-  const [currentWeather, setCurrentWeather] = useState(undefined);
 
-  useEffect(() => (
-    axios
-      .get(
-        `http://api.weatherapi.com/v1/current.json?` +
-        `key=${process.env.REACT_APP_API_KEY}&` +
-        `q=${encodeURIComponent(country.capital)}&aqi=no`)
-      .then(result => setCurrentWeather(result.data))
-  ), [country]);
   console.log(country);
-  console.log(currentWeather);
-  if (currentWeather) console.log('http:' + currentWeather.current.condition.icon);
   
   return(
     <>
@@ -81,10 +88,7 @@ const FullCountryInfo = ({ country }) => {
             </ul>
           </>
     }
-    {currentWeather
-      ? <CapitalWeather weather={currentWeather} capital={country.capital} />
-      : null
-    }
+    <CapitalWeather capital={country.capital} />
     </>
   );
 };

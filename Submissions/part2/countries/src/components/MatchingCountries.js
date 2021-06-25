@@ -8,7 +8,7 @@ const MatchingCountries = ({
 }) => {
 
   if (matchingCountries.length === 0) {
-    return <p>No countries found for{` "${searchText}"`}.</p>;
+    return <p>{`No countries found for "${searchText}"`}.</p>;
   }
 
   if (matchingCountries.length > 10) {
