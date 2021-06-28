@@ -1,8 +1,6 @@
-import React from 'react';
-
 const EntryFilterInput = ({ filterText, setFilterText }) => (
   <label>
-    show only entries containing {' '}
+    filter: {' '}
     <input 
       value={filterText}
       onChange={e => setFilterText(e.target.value)}
